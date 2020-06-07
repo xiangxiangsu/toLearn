@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>this的指向问题</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 1.this 在正常情况下指向window
+	console.log(this)
+	// 2.在函数调用中，谁调用了函数，函数内部的this就指向谁
+	var obj = {
+		foo:function(){
+			console.log(this)
+		}
+	}
+	obj.foo()
+	// 3.在new关键字下，this会指向新创建的对象
+	function Car(name,color){
+		this.name = name
+		this.color = color
+		console.log(this)
+	}
+	var xiaopeng = new Car('xiaopeng','red')
+	// 4.通过 call,apply,bind改变
+	// call和apply的用法几乎一样，只不过call需要传递一个序列，apply需要传递一个数组
+	// 不用数组的方法，获取数组中的最大值
+	// var max = Math.max.apply(Math,[1,4,3,2,20])
+	var max = Math.max.call(Math,1,4,3,25,18)
+
+	console.log(max)
+
+	// bind方法返回的是一个函数，并且这个函数包含传入的参数，传入的参数和call方法类似，是一个序列
+	// 第一个参数是bind这个函数中的this指向，后面的参数就是这个函数的入参
+
+	var obj1 = {
+		name:'suxx'
+	}
+	function printName(a,b,c){
+		console.log(this.name)
+		console.log(a)
+		console.log(b)
+		console.log(c)
+	}
+	var dot = printName.bind(obj1,{name:2222},{name:'3333'},{age:18})
+	console.log(dot)
+	dot()
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>input的联想搜索功能进阶</title>
+</head>
+<body>
+<input type="" name="">
+<input type="" name="">
+
+<script type="text/javascript">
+	function ajax(){
+		setTimeout(() => {
+			console.log('ajax返回的数据')
+		},0)
+	}
+
+	var input1 = document.getElementsByTagName('input')[0]
+	var input2 = document.getElementsByTagName('input')[1]
+
+	// 需求：一个输入框，用户输入时有联想搜索，每次用户输入都会触发请求，过多的请求会造成服务器的压力，如何去解决这个问题？
+
+	// 方案1  延迟发送可以去解决这样的问题
+	// console.log(input)
+
+	// var timer = null
+	// input.oninput = function (e){
+	// 	// console.log(e.target.value)
+	// 	clearTimeout(timer)
+	// 	timer = setTimeout(() =>{
+	// 		ajax()
+	// 	},1000)
+	// }
+
+	// 这样是正确的，可以解决问题。但是全局变量timer不好，throttle与输入处理函数耦合在一起，能提取一个公共函数出来吗？
+	// 方案2 使用闭包
+
+	// var delay = (function(){
+	// 	var timer = null
+	// 	return function(fn,time){
+	// 		clearTimeout(timer)
+	// 		timer = setTimeout(fn,time)
+	// 	}
+	// })();
+	// input1.oninput = function(){
+	// 	delay(ajax,3000)
+	// }
+	
+
+	// 问题基本解决了，但是页面上如果有两个这样的输入框，分别对应不同的联想搜索，输入框一输入完成之后马上在输入框二输入，有什么Bug吗？
+	// 由于公用了同一个timer导致不能发送请求
+
+
+	var delay = function(){
+	    var timer = 0;
+	    return function(fn, time) {
+	        clearTimeout(timer);
+	        timer = setTimeout(fn, time)
+	    }
+	}
+	var delay1 = delay();
+	var delay2 = delay();
+
+	input1.oninput = function(){
+		delay1(ajax,3000)
+	}
+
+	input2.oninput = function(){
+		delay2(ajax,3000)
+	}
+
+
+
+</script>
+</body>
+</html>

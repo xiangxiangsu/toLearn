@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>深copy和浅copy</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 浅copy
+	let a = {
+		name:'zs',
+		age:12,
+		hobby:['吃饭','睡觉','打豆豆']
+	}
+
+	// 1. 
+	let b = a
+	// 2. 
+	let c = Object.assign({},a)
+	// 3.
+	function lightCopy(obj){
+		if(!obj || typeof obj !== 'object') return
+		let newObj = obj.constructor === Array ? [] : {}
+		for(let key in obj){
+			newObj[key] = obj[key]
+		}
+		return newObj
+	}
+	let d = lightCopy(a)
+
+
+	// 深copy
+	// 1.
+	let e = JSON.parse(JSON.stringify(a))  // 缺陷：undefined 函数会被忽略
+	// 2.
+
+</script>
+</body>
+</html>

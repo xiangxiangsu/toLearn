@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>最长回文字段</title>
+</head>
+<body>
+<script type="text/javascript">
+
+	function getLongestPalindrome(str){
+		let longestPalindrome = ''
+		let tempPalindrome = ''
+		for(let i=0;i<str.length;i++){
+			tempPalindrome = ''
+			for(let j=i;j<str.length;j++){
+				tempPalindrome += str.charAt(j)
+				// console.log(isPalindrome(tempPalindrome))
+				if(isPalindrome(tempPalindrome) && tempPalindrome.length > longestPalindrome.length){
+					longestPalindrome = tempPalindrome
+				}
+			}
+		}
+		return longestPalindrome
+	}
+
+	function isPalindrome(str){
+		let newStr = str.split('').reverse().join('')
+		return newStr === str
+	}
+
+	let s = 'cdcabbacddd'
+	let res = getLongestPalindrome(s)
+	console.log(res)
+</script>
+</body>
+</html>

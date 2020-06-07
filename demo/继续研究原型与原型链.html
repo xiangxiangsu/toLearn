@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究原型与原型链</title>
+</head>
+<body>
+    <script>
+        function Dog(type,size){
+            this.type = type
+            this.size = size
+        }
+        Dog.prototype.sit = function(){
+            console.log('sit')
+        }
+        let bomei = new Dog('bomei','mini')
+        console.log(bomei)
+        console.log(bomei.__proto__)
+        console.log(Dog.prototype)
+        console.log(bomei.__proto__ === Dog.prototype)
+
+        // 上面这个例子说明了实例的__proto__和构造函数的prototype指向的是同一个对象
+
+        console.log(Dog.__proto__)
+        console.log(Function.prototype)
+        console.log(Dog.__proto__ === Function.prototype)
+        
+        // 上面这个例子说明，我们的构造函数是Funtion的一个实例，他的__proto__指向的是Function的prototype
+
+        console.log(Function.__proto__)
+        console.log(Function.prototype)
+        console.log(Function.prototype === Function.__proto__)
+
+        // Function按照这个来看，他是自己的一个实例;其实应该是Function的__proto__声明式的指向了Function.prototype
+
+        console.log(Object.prototype)
+        console.log(Object.__proto__)
+        console.log(Object.__proto__ === Function.prototype)
+        // Object的__proto__指向的是Function的prototype；说明Object是Function的一个实例
+        
+        // 我们一般给构造函数prototype上添加方法，为什么这样做呢，因为构造函数的prototype和实例的__proto__指向的是同一个对象
+        // 那么其实一个实例在自身上找方法或者找属性的时候，找不到，就会沿着__proto__这个链条去找构造函数上的prototype这个对象
+        // 上找，如果还是没有找到，就要在构造函数的__proto__上去找，也就是构造函数的构造函数上的prototype
+        console.log('-----------分割线--------------')
+        function Foo(){}
+        console.log(Foo.prototype)
+        console.log(Foo.prototype.constructor)
+        console.log(Foo.__proto__)
+        console.log(Foo.prototype.__proto__)
+        console.log(Object.prototype === Foo.prototype.__proto__)
+        console.log(Object.prototype.__proto__)
+
+        // 所有对象都有一个__proto__
+        // Funtion 、 Object 、和任意一个构造函数（没有继承其他的构造函数）的都有一个__proto__指向Function的prototype
+        // Function.prototype.__proto__指向的是Object.prototype
+        // Object.prototype.__proto__ 指向的是 null  
+
+
+        console.log('-------------华丽的分割线-----------------')
+        function ShowDog(type,size,name){
+            Dog.call(this,type,size)
+            this.name = name
+        }
+        ShowDog.prototype = new Dog()
+        ShowDog.prototype.constructor = ShowDog
+        console.log(ShowDog.prototype)      
+        var haha = new ShowDog('hashiqi','big','haha')
+        console.log(haha)
+        haha.sit()
+
+    </script>
+</body>
+</html>

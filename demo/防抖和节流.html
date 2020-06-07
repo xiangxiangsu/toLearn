@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流</title>
+    <button class="btn1">防抖</button>
+    <button class="btn2">节流</button>
+</head>
+<body>
+    <script>
+        // 防抖是只有最后一次触发有效，其余的触发都无效
+        function _debounce(handler,delay,context){
+            let timer = null
+            return () => {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    handler.apply(context)
+                },delay)
+            }
+        }
+
+        // 节流指的是一段时间之内只触发一次
+        function _throttle(handler,wait,context){
+            let lastTime = 0
+            return function(){
+                let now = new Date().getTime()
+                while(now - lastTime > wait){
+                    handler.apply(context)
+                    lastTime = now
+                }
+            }
+        }
+    </script>
+    <script>
+        let btn1 = document.querySelector('.btn1')
+        btn1.addEventListener('click',_debounce(() => {
+            console.log('防抖~~~~~~~~~~~~~~~~~~~~~~')
+            console.log(this)
+        },1000,this))
+        // btn1.addEventListener('click',() => {
+        //     console.log(this)
+        // })
+
+
+        let btn2 = document.querySelector('.btn2')
+        btn2.addEventListener('click',_throttle(() => {
+            console.log('节流~~~~~~~~~~~~~~~~~~~~~~~')
+            console.log(this)
+        },1000))
+    </script>
+</body>
+</html>

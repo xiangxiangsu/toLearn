@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JavaScript类的继承</title>
+</head>
+<body>
+<script type="text/javascript">
+var Car = function(name,color){
+	this.name = name
+	this.color = color
+	this.start = function(){
+		console.log(this.name)
+	}
+}
+// Car.prototype.start = function(){
+// 	console.log(this.name)
+// }
+
+var xiaopeng = new Car('xiaopeng','red')
+xiaopeng.start = function(){
+	console.log(this.name + '       wenwen')
+}
+var lanbojn = new Car('lanbojn','orange')
+
+// console.log(xiaopeng.start())
+// console.log(lanbojn.start())
+xiaopeng.start()
+lanbojn.start()
+
+class Computer{
+	constructor(band,cpu){
+		this.band = band
+		this.cpu = cpu
+	}
+	kaiji(){
+		console.log('我是' + this.band)
+	}
+}
+
+var cp1 = new Computer('联想','i5')
+var cp2 = new Computer('戴尔','i7')
+
+console.log(cp1.cpu)
+cp1.kaiji()
+
+</script>
+</body>
+</html>

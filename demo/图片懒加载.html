@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .list{
+            /* display: flex; */
+            /* flex-direction: column; */
+            height: 500px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        .pic{
+            /* float: left; */
+            /* flex: 1; */
+            /* object-fit: contain; */
+        }
+        .scroll-con-img{
+            width: 80%;
+            opacity: 0;
+            /* transform: translateX(50%); */
+            transition: all 1s;
+        }
+        .fade{
+            transform: translateX(0);
+            opacity: 1;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="list scroll-con">
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+    <h1>图片懒加载</h1>
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2139201052,3378279478&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2273707998,1953004042&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2797661516,1382381678&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1249489767,1655407585&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2133687653,1260468305&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1198871066,1219176953&fm=26&gp=0.jpg" alt="">
+        <img class="pic scroll-con-img" src="./images/default.jpg" data-src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1297045758,3041614278&fm=26&gp=0.jpg" alt="">
+    </div>
+</body>
+<script>
+    let con = document.querySelector('.scroll-con')
+    let conImgs = document.querySelectorAll('.scroll-con-img')
+    // console.log(con)
+    // con.addEventListener('scroll',() => {
+    //     console.log('222222222')
+    //     conImgs.forEach(img => {
+    //         let conTop = con.getBoundingClientRect().top
+    //         let imgTop = img.getBoundingClientRect().top
+    //         if(imgTop - conTop <= con.clientHeight){
+    //             console.log(imgTop - conTop)
+    //             let src = img.getAttribute('data-src')
+    //             img.setAttribute('src',src)
+    //             img.classList.add('fade')
+    //         }
+    //     })
+    // }) 
+    // conImgs.forEach(img => {
+    //     console.log(img)
+    //     let conTop = con.getBoundingClientRect().top
+    //     let imgTop = img.getBoundingClientRect().top
+    //     console.log(conTop)
+    //     console.log(imgTop)
+    //     if(imgTop - conTop <= con.clientHeight){
+    //         let src = img.getAttribute('data-src')
+    //         img.setAttribute('src',src)
+    //         img.classList.add('fade')
+    //     }
+    // })
+    const options = {
+        root:con,
+        threshold:1,
+        rootMargin:'0px'
+    }
+    function lazyLoad(target){
+        const io = new IntersectionObserver((entries,observer) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    const img = entry.target
+                    const src = img.getAttribute('data-src')
+                    console.log(src)
+                    img.setAttribute('src',src)
+                    img.classList.add('fade')
+                    observer.disconnect()
+                }
+            })
+        },options)
+        io.observe(target)
+    }
+    conImgs.forEach(lazyLoad)
+
+</script>
+</html>

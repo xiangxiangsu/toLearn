@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>实现一个bind</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	Function.prototype.myBind = function(obj){
+		// console.log(...arguments)
+		return ((...args) => {this.apply(obj,args)})
+	}
+	// foo(1)
+
+	function foo(arg){
+		console.log(this.a)
+	}
+
+	foo.myBind({a:3})(4)
+
+	foo.bind({a:3})(4)
+</script>
+</body>
+</html>

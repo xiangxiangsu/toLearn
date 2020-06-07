@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>实现一个promise</title>
+</head>
+<body>
+<script type="text/javascript">
+	class Prom{
+		constructor(fn){
+			this.value = undefined
+			this.reason = undefined
+			this.status = 'PEDDING'
+
+			this.resolveFns = []
+			this.rejectFns = []
+
+			const resolve = value => {
+				setTimeout(() => {
+					this.status = 'RESOLVED'
+					this.value = value
+					resolveFns.forEach({fn,resolve:res,reject:rej} => res(fn(value)))
+				})
+			}
+
+			const reject = e => {
+				setTimeout(() => {
+					this.status = 'REJECTED'
+					this.reason = e
+					rejectFns.forEach({fn,resolve:res,reject:rej} => rej(fn(e))
+				})
+			}
+
+			fn(resolve,reject)
+		}
+	}
+</script>
+</body>
+</html>

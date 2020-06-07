@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>元素在界面上消失</title>
+</head>
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+	}
+	.div1{
+		opacity: 0
+	}
+	.div2{
+		visibility: none;
+	}
+</style>
+<body>
+	<div class="box div1"></div>
+	<div class="box div2"></div>
+
+	<div class="box div3"></div>
+
+	<div class="box div4"></div>
+
+
+	<script type="text/javascript">
+		let div1 = document.querySelector('.div1')
+		let div2 = document.querySelector('.div2')
+		console.log(div1)
+		console.log(div2)
+		div1.onclick = function(){
+			console.log('div1')
+		}
+		div2.onclick = function(){
+			console.log('div2')
+		}
+
+		console.log({} + 'b' > {} + 'a')
+
+
+		// 设置display:none后的元素只会导致浏览器重排而不是重绘
+		// 设置visibility:hidden后的元素只会导致浏览器重绘而不会重排
+
+		// question:重绘和重排究竟是什么
+	</script>
+
+</body>
+</html>

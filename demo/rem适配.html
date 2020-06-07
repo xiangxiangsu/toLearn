@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>rem适配</title>
+</head>
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.box{
+		width: 8rem;
+		height: 1rem;
+		background-color: pink;
+	}
+</style>
+<body>
+	<div class="box">
+		
+	</div>
+	<script type="text/javascript">
+		// rem适配的原理是在不同设备下元素的占据的css像素个数不同，达到在不同设备下的显示效果一模一样
+		// rem指的是html根标签的font-size大小，而em用的是本身的font-size大小
+		// PC端chrome最小字体为12px 移动端不是
+		// 四行代码使用rem布局
+		(function(){
+			var styleNode = document.createElement('style')
+			// var w = document.documentElement.clientWidth/16
+			var w = 50
+			styleNode.innerHTML = `html{font-size:${w}px !important}`
+			document.head.appendChild(styleNode)
+		})()
+
+
+		// var styleNode = document.createElement('style')
+		// var w = document.documentElement.clientWidth/16
+		// styleNode.innerHTML = `html{font-size:${w}px !important}`
+		// document.head.appendChild(styleNode)
+	</script>
+</body>
+</html>

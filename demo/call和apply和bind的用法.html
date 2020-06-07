@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 今天面试突然被问道call，apply，bind的用法，居然没有回答的太好，这里需要注意一下
+        // 1.如果调用的函数中没有用到this，那么传递的第一参数可以传递'',null,undefined等
+        let res = Math.max.apply(null,[1,3,7,5])
+        console.log(res)
+
+        // 2.如果是这个函数需要用到this
+        let obj = {}
+        obj.foo = function(str){
+            // console.log(this.name + str)
+            return this.name + str
+        }
+        let stu = {
+            name:'张三'
+        }
+        obj.foo.call(stu,'吃饱了')
+
+        // call和apply的用法差不多，apply的传参用的是数组，call的传参用 逗号  隔开
+
+        // bind的使用场景
+
+        let fn = obj.foo.bind(stu,9999)
+        // console.log(fn)
+        console.log(fn(213))
+
+
+        let fn2 = obj.foo.bind(stu,[1,3,7,5])
+        console.log(fn2)
+        console.log(fn2('123'))
+        console.log(fn2())
+    </script>
+    <script>
+        // 手动实现这三个方法
+        Function.prototype.myCall = function(...arguments){
+            let context = arguments[0] || window
+            let args = arguments.slice(1)
+            context.fn = this
+            let res = context.fn(...args)
+            delete context.fn
+            return res
+        }
+
+        let myRes = obj.foo.myCall(stu,'滴定仪的')
+        console.log(myRes)
+
+        Function.prototype.myApply = function(){
+            context = arguments[0] || window
+            context.fn = this
+            console.log(arguments[1])
+            let res = context.fn(...arguments[1])
+            delete context.fn
+            return res
+        }
+        let res2 = Math.max.myApply(null,[1,2,3,4,8,5])
+        console.log(res2)
+
+        Function.prototype.myBind = function(...arguments){
+            const fn = this
+            const contxt = arguments[0] || window
+            console.log(arguments[0])
+            console.log(context)
+            const args = arguments.splice(1)
+            return function() {
+                console.log(context)
+                fn.apply(arguments[0],args)
+            }
+        }
+        let foo3 = obj.foo.myBind(stu,[1,2,3])
+        console.log(foo3())
+    </script>
+</body>
+</html>

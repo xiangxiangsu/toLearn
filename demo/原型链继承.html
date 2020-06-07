@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>原型链继承</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function Dog(name,age,weight){
+			this.name = name
+			this.age = age
+			this.weight = weight
+			// this.bark = function(){
+			// 	console.log('bark')
+			// }
+			// this.run = function(){
+			// 	console.log('run')
+			// }
+			// this.wag = function(){
+			// 	console.log('wag')
+			// }
+		}
+		var Fido = new Dog('fido',10,23)
+		// console.log(Fido)
+
+		// 上面这种继承的方式就会在每一个实例中都包含了bark,run,wag这三个方法
+
+		Dog.prototype.bark = function(){
+			console.log('bark')
+		}
+
+		Fido.bark()
+		console.log(Fido)
+
+		// 注意一定要在实例调用函数之前设置好原型链上的方法
+
+		// 通过原型链继承
+		// 创建一个表演犬的原型，并且继承Dog
+		function ShowDog(name,age,weight){
+			this.name = name
+			this.age = age
+			this.weight = weight
+		}
+		// ShowDog.prototype =  Dog.prototype 这样的话，showdog和dog两个构造函数就指向的是同一个
+		// 原型，那么修改ShowDog上原型的方法，也会影响到Dog
+		// ShowDog.prototype = new Dog 这样，showDog构造函数的原型指向的是Dog构造函数的一个实例，这个实例的__proto__指向的就是Dog的prototype，实现了原型链的继承
+		// ShowDog.prototype =  Dog.prototype  // 错误写法
+		ShowDog.prototype = new Dog()
+		ShowDog.prototype.sit = function(){
+			console.log('坐下来')
+		}
+		var show1 = new ShowDog('旺财','12','22')
+
+		show1.sit()
+		// Fido.sit()
+
+		// instanceof  实例是不是这个构造函数的实例
+		console.log(show1 instanceof Dog)
+		console.log(show1 instanceof ShowDog)
+		console.log(ShowDog instanceof Dog)
+		console.log(ShowDog.__proto__ instanceof Dog)  // false
+		console.log(ShowDog.prototype instanceof Dog)  // true
+
+		// constructor
+		console.log(show1.constructor)   // Dog
+
+		// 必须要显示的指出ShowDog的构造器
+		ShowDog.prototype.constructor = ShowDog
+		console.log(show1.constructor)
+
+		// 继续优化
+		function MiniDog(name,age,weight){
+			Dog.call(this,name,age,weight)
+		}
+
+		// MiniDog.prototype = new Dog()
+		MiniDog.prototype = new ShowDog()
+		MiniDog.prototype.constructor = MiniDog
+		var mini1 = new MiniDog('minimini',3,'100g')
+		// console.log(mini1)
+		mini1.bark()
+		mini1.sit()
+
+
+
+
+
+	</script>
+</body>
+</html>

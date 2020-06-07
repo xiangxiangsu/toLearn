@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>js实现继承的方法</h1>
+    <script>
+        // 1. 原型链继承
+        function SuperFun(){
+            this.suberName = 'super'
+        }
+        SuperFun.prototype.getName = function(){
+            return this.suberName || this.subName
+        }
+
+        function SubFun(){
+            this.subName = 'sub'
+        }
+        subFun.prototype = new SuperFun()
+
+        let sub1 = new SubFun()
+
+        console.log(sub1.getName())
+    
+    </script>
+</body>
+</html>

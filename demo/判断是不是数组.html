@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>判断是不是数组</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var a = []
+		var b = null
+		var c = {}
+		// 1. instanceof Array
+		// console.log(a instanceof Array)
+		// console.log(b instanceof Array)
+		// console.log(c instanceof Array)
+
+		// 2. Array.isArray()
+		// console.log(Array.isArray(a))
+		// console.log(Array.isArray(b))
+		// console.log(Array.isArray(c))
+
+		// 3.constructor
+		console.log(a.constructor === Array)
+		console.log(b && b.constructor)
+
+		console.log(c && c.constructor)
+
+
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>实现bind函数</title>
+</head>
+<body>
+	<script type="text/javascript">
+		Function.prototype.myBind = function(...arguments){
+			let fn = this
+			let context = arguments[0]
+			let args = arguments.slice(1)
+			return function(){
+				fn.apply(context,args)()
+			}
+		}
+
+		let person = {
+			name:'苏相相'
+		}
+		let foo = function(str){
+			console.log(this.name + str)
+		}
+		let res = foo.bind(person,'好帅')
+		res()
+	</script>
+</body>
+</html>

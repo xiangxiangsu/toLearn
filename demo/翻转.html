@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>翻转</title>
+</head>
+<style type="text/css">
+	/*.box{
+		width: 100px;
+		height: 100px;
+		
+		background-color: green;
+	}
+	.box:hover{
+		transition: rotate(30deg);
+		transform: all ease-in 2s;
+	};*/
+	.pic{
+		width: 100px;
+		height: 100px;
+		position: relative;
+		transition: all 1s ease-in-out;
+		transform-style: preserve-3d;
+	}
+	.pic:hover{
+		transform: rotateY(180deg);
+	}
+	.positive,.negative{
+		width: 100px;
+		height: 100px;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.positive{
+		background-image: ''
+	}
+	.negative{
+		background-image: ''
+		transform: rotateY(-180deg);
+	}
+	
+</style>
+<body>
+	<div class="pic">
+		<div class="positive">正面</div>
+		<div class="negative">反面</div>
+	</div>
+</body>
+<script type="text/javascript">
+	function fibonacci1(index){
+		index = parseInt(index)
+		if(typeof index !== 'number' || index < 0){
+			console.log('输入不合法')
+			return
+		}
+		if(index === 0 || index === 1){
+			return 1
+		}
+		return fibonacci1(index - 1) + fibonacci1(index - 2)
+	}
+	let res = fibonacci1(20)
+	console.log(res)
+
+	function fibonacci2(index){
+		index = parseInt(index)
+		if(typeof index !== 'number' || index<0){
+			console.log('输入不合法')
+			return
+		}
+		if(index === 0 || index === 1){
+			return 1
+		}
+		let arr = []
+		let temp = ''
+		arr[0] = 1
+		arr[1] = 1
+
+		for(let i=2;i<=index;i++){
+			temp = arr[0] + arr[1]
+			arr[0] = arr[1]
+			arr[1] = temp
+		}
+		return arr[1]
+	}
+
+	let res2 = fibonacci2(20)
+	console.log(res2)
+</script>
+</html>
